@@ -2,7 +2,7 @@ import time
 import random
 import os
 
-# Unsustainable practice 1: CPU Intensive Task without Throttling
+# Unsustainable practice 1: CPU Intensive Task without Throttling 1
 def cpu_intensive_task(duration):
     start_time = time.time()
     while time.time() - start_time < duration:
