@@ -20,7 +20,7 @@ def cpu_intensive_task3(duration):
     while time.time() - start_time < duration:
         _ = [random.random() for _ in range(1000000)] # Doing a lot of unnecessary work
 # Unsustainable practice 1: CPU Intensive Task without Throttling 1
-def cpu_intensive_task4(duration):
+def cpu_intensive_task5(duration):
     start_time = time.time()
     while time.time() - start_time < duration:
         _ = [random.random() for _ in range(1000000)] # Doing a lot of unnecessary work
