@@ -14,6 +14,12 @@ def cpu_intensive_task2(duration):
     while time.time() - start_time < duration:
         _ = [random.random() for _ in range(1000000)] # Doing a lot of unnecessary work
 
+# Unsustainable practice 1: CPU Intensive Task without Throttling 1
+def cpu_intensive_task3(duration):
+    start_time = time.time()
+    while time.time() - start_time < duration:
+        _ = [random.random() for _ in range(1000000)] # Doing a lot of unnecessary work
+
 # Unsustainable practice 2: Memory Leaks (simulated)
 large_data_structures = []
 def memory_intensive_operation(size):
