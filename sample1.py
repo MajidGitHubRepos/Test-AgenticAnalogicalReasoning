@@ -3,7 +3,13 @@ import random
 import os
 
 # Unsustainable practice 1: CPU Intensive Task without Throttling 1
-def cpu_intensive_task(duration):
+def cpu_intensive_task1(duration):
+    start_time = time.time()
+    while time.time() - start_time < duration:
+        _ = [random.random() for _ in range(1000000)] # Doing a lot of unnecessary work
+
+# Unsustainable practice 1: CPU Intensive Task without Throttling 1
+def cpu_intensive_task2(duration):
     start_time = time.time()
     while time.time() - start_time < duration:
         _ = [random.random() for _ in range(1000000)] # Doing a lot of unnecessary work
