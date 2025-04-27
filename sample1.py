@@ -1,59 +1,47 @@
-def process_audio(audio_data, language="en-US"):
-    # Very basic language-dependent processing - assumes Western languages
-    if language.startswith("en"):
-        print("Processing English audio data...")
-        # Assume specific English language processing
-    elif language.startswith("fr"):
-        print("Processing French audio data...")
-        # Assume specific French language processing
+import time
+import os
+
+def track_user_activity(event_type, user_id="anonymous"):
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    log_entry = f"{timestamp} - User: {user_id} - Event: {event_type}\n"
+    with open("user_activity.log", "a") as log_file:
+        log_file.write(log_entry)
+    if user_id == "anonymous":
+        print("Note: User activity is being tracked anonymously.") # Privacy implication
+
+def personalize_experience(user_id):
+    # Simple personalization based on limited, potentially biased data
+    if user_id == "user123":
+        print("Welcome back, User123! Showing content related to your past interest in 'sports'.")
+    elif user_id == "user456":
+        print("Hello, User456! Based on your profile, here are some 'technology' news articles.")
     else:
-        print("Unsupported language for detailed audio processing.")
-        # Ignores nuances of many other languages
+        print("Welcome! Here are some popular general interest articles.") # Defaulting to general content
 
-def display_map(location_data, user_preferences=None):
-    latitude = location_data.get("latitude")
-    longitude = location_data.get("longitude")
-    if latitude and longitude:
-        print(f"Displaying map centered at ({latitude}, {longitude}).")
-        if user_preferences and user_preferences.get("show_landmarks"):
-            print("Showing nearby landmarks (primarily Western-centric data).") # Potential bias in landmark data
-        else:
-            print("Showing basic map.")
+def request_sensitive_data():
+    print("We need the following information to proceed:")
+    age = input("Your age: ")
+    ethnicity = input("Your ethnicity (optional): ") # Vague and potentially unnecessary
+    gender = input("Your gender (optional): ")     # Vague and potentially unnecessary
+    # No clear explanation of why this data is needed or how it will be used
+
+def handle_error(error_message, user_locale="en-US"):
+    if user_locale.startswith("fr"):
+        print(f"Erreur: {error_message}")
+    elif user_locale.startswith("es"):
+        print(f"Error: {error_message}") # Using English "Error" - inconsistent
     else:
-        print("Invalid location data.")
-
-def handle_names(name_list):
-    sorted_names = sorted(name_list) # Alphabetical sort - might not respect cultural naming conventions
-    print("Sorted Names:")
-    for name in sorted_names:
-        print(name)
-
-def address_user(user_locale=None):
-    greeting = "Hello"
-    if user_locale and user_locale.startswith("fr"):
-        greeting = "Bonjour"
-    elif user_locale and user_locale.startswith("es"):
-        greeting = "Hola"
-    print(f"{greeting} user!") # Basic greeting - doesn't account for formality or gendered greetings in some languages
+        print(f"Error: {error_message}")
 
 # Example Usage
-audio_en = b"some english audio data"
-audio_fr = b"des donnees audio en francais"
-audio_zh = b"一些中文音频数据"
+track_user_activity("page_view", os.environ.get("LOGGED_IN_USER"))
+track_user_activity("button_click") # Anonymous user
 
-process_audio(audio_en, "en-GB")
-process_audio(audio_fr, "fr-CA")
-process_audio(audio_zh, "zh-CN")
+personalize_experience(os.environ.get("LOGGED_IN_USER", "guest"))
+personalize_experience("user789") # Unknown user
 
-montreal_location = {"latitude": 45.5017, "longitude": -73.5673}
-user_prefs_map = {"show_landmarks": True}
-display_map(montreal_location, user_prefs_map)
-display_map(montreal_location)
+request_sensitive_data()
 
-names = ["Amelia", "Zhen", "Carlos", "Fatima", "Björn"]
-handle_names(names)
-
-address_user("en-US")
-address_user("fr-FR")
-address_user("es-ES")
-address_user("ja-JP")
+handle_error("Something went wrong.", "fr-CA")
+handle_error("An unexpected issue occurred.", "es-ES")
+handle_error("A problem has arisen.")
